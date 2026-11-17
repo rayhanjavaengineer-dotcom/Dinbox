@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "DINBOX — আপনার প্রতিদিনের ডিজিটাল সঙ্গী",
+  "short_name": "DINBOX",
+  "description": "বাংলাদেশের মানুষের দৈনন্দিন কাজ, পড়াশোনা, ব্যবসা ও ব্যক্তিগত হিসাবের ডিজিটাল সঙ্গী।",
+  "lang": "bn",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#f5f8f6",
+  "theme_color": "#08764e",
+  "icons": [
+    {
+      "src": "./assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

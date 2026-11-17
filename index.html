@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#08764e">
+  <meta name="description" content="DINBOX — বাংলাদেশের মানুষের দৈনন্দিন কাজ, পড়াশোনা, ব্যবসা ও ব্যক্তিগত হিসাবের ডিজিটাল সঙ্গী।">
+  <meta name="color-scheme" content="light dark">
+  <title>DINBOX — আপনার প্রতিদিনের ডিজিটাল সঙ্গী</title>
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./assets/icons/icon-192.png">
+  <link rel="apple-touch-icon" href="./assets/icons/icon-192.png">
+  <link rel="stylesheet" href="./css/style.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+</head>
+<body>
+<div class="app-layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand-area">
+      <a class="brand" href="#home" aria-label="DINBOX Home"><span class="brand-logo">D</span><span class="brand-name">DINBOX</span></a>
+      <button class="icon-btn close-sidebar" id="closeSidebar" aria-label="মেনু বন্ধ">×</button>
+    </div>
+    <div class="profile-mini"><div class="avatar">D</div><div><strong id="profileName">আমার DINBOX</strong><small>ব্যক্তিগত Workspace</small></div></div>
+    <nav class="main-navigation" aria-label="প্রধান মেনু">
+      <p class="nav-heading">ওয়ার্কস্পেস</p>
+      <a href="#home" class="nav-link active" data-page="home"><span>⌂</span><span data-i18n="home">হোম</span></a>
+      <a href="#planner" class="nav-link" data-page="planner"><span>▦</span><span data-i18n="planner">দৈনিক পরিকল্পনা</span></a>
+      <a href="#student" class="nav-link" data-page="student"><span>▤</span><span data-i18n="student">স্টুডেন্ট জোন</span></a>
+      <a href="#business" class="nav-link" data-page="business"><span>▣</span><span data-i18n="business">ব্যবসা</span></a>
+      <a href="#finance" class="nav-link" data-page="finance"><span>৳</span><span data-i18n="finance">আমার হিসাব</span></a>
+      <a href="#bazar" class="nav-link" data-page="bazar"><span>🛒</span><span data-i18n="bazar">বাজার তালিকা</span></a>
+      <a href="#bills" class="nav-link" data-page="bills"><span>▧</span><span data-i18n="bills">বিল ম্যানেজার</span></a>
+      <a href="#documents" class="nav-link" data-page="documents"><span>▤</span><span data-i18n="documents">ডকুমেন্ট ভল্ট</span></a>
+      <a href="#career" class="nav-link" data-page="career"><span>♧</span><span data-i18n="career">ক্যারিয়ার</span></a>
+      <a href="#calculator" class="nav-link" data-page="calculator"><span>⊞</span><span data-i18n="calculator">ক্যালকুলেটর</span></a>
+      <a href="#family" class="nav-link" data-page="family"><span>♡</span><span data-i18n="family">পরিবার</span></a>
+      <p class="nav-heading">ব্যক্তিগত</p>
+      <a href="#settings" class="nav-link" data-page="settings"><span>⚙</span><span data-i18n="settings">সেটিংস ও ব্যাকআপ</span></a>
+    </nav>
+    <div class="sidebar-footer"><span class="privacy-label">● ডেটা আপনার ডিভাইসে</span><small>DINBOX v1.0.0</small></div>
+  </aside>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  <main class="main-content">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="icon-btn menu-button" id="menuButton" aria-label="মেনু খুলুন">☰</button>
+        <div class="breadcrumb"><span>DINBOX</span><span>/</span><strong id="currentPageTitle">হোম</strong></div>
+      </div>
+      <div class="topbar-actions">
+        <span class="local-status"><i></i><span id="connectionLabel">অফলাইন-প্রস্তুত</span></span>
+        <button class="topbar-button" id="languageButton" aria-label="ভাষা পরিবর্তন">বাংলা</button>
+        <button class="icon-btn" id="themeButton" aria-label="থিম পরিবর্তন">◐</button>
+      </div>
+    </header>
+    <section id="pageContainer" class="page-container" tabindex="-1"></section>
+    <footer class="app-footer"><span>DINBOX © <span id="year"></span></span><span>বাংলাদেশের মানুষের জন্য তৈরি · আপনার তথ্য আপনার কাছেই</span></footer>
+  </main>
+</div>
+<div class="toast-region" id="toastRegion" aria-live="polite"></div>
+<dialog id="recordDialog" class="modal">
+  <form method="dialog" id="recordForm">
+    <div class="modal-head"><div><p class="eyebrow" id="formEyebrow">নতুন তথ্য</p><h2 id="formTitle">তথ্য যোগ করুন</h2></div><button class="icon-btn" value="cancel" aria-label="বন্ধ">×</button></div>
+    <div id="formFields" class="form-fields"></div>
+    <div class="modal-actions"><button class="btn btn-ghost" value="cancel">বাতিল</button><button class="btn btn-primary" id="saveRecordButton" value="default">সংরক্ষণ</button></div>
+  </form>
+</dialog>
+<script src="./js/storage.js" defer></script>
+<script src="./js/language.js" defer></script>
+<script src="./js/theme.js" defer></script>
+<script src="./js/router.js" defer></script>
+<script src="./js/dashboard.js" defer></script>
+<script src="./js/modules.js" defer></script>
+<script src="./js/calculator.js" defer></script>
+<script src="./js/backup.js" defer></script>
+<script src="./js/app.js" defer></script>
+</body>
+</html>
