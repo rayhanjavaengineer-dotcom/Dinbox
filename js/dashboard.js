@@ -1,0 +1,21 @@
+(function(){
+ window.DinboxDashboard={
+ render(){const d=DinboxStore.all(),today=new Date().toISOString().slice(0,10);const tasks=d.tasks.filter(x=>x.date===today);const expenses=d.expenses.filter(x=>x.date===today && x.category!=="আয়").reduce((s,x)=>s+Number(x.amount||0),0);const completed=tasks.filter(x=>x.done).length;const total=Object.keys(d).filter(k=>Array.isArray(d[k])).reduce((s,k)=>s+d[k].length,0);
+ const date=new Intl.DateTimeFormat(DinboxLanguage.current()==="bn"?"bn-BD":"en-US",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(new Date());
+ return `<section class="hero"><div class="hero-copy"><p class="eyebrow">আপনার ডিজিটাল জীবনসঙ্গী</p><h1>স্বাগতম আপনার <span>DINBOX-এ!</span></h1><p>প্রতিদিনের কাজ, হিসাব ও পরিকল্পনা—সবকিছু এখন এক জায়গায়।</p></div><div class="hero-mark">D</div></section>
+ <div class="date-strip"><div><span class="small-label">আজকের দিন</span><h2>${date}</h2></div><span class="pill">● আপনার ব্যক্তিগত Workspace</span></div>
+ <div class="stats-grid">
+ <article class="stat-card"><div class="stat-top"><span>আজকের কাজ</span><span class="stat-icon">▦</span></div><strong>${tasks.length}</strong><small>মোট পরিকল্পিত কাজ</small></article>
+ <article class="stat-card"><div class="stat-top"><span>আজকের খরচ</span><span class="stat-icon">৳</span></div><strong>${Dinbox.money(expenses)}</strong><small>আজকের মোট ব্যয়</small></article>
+ <article class="stat-card"><div class="stat-top"><span>সম্পন্ন কাজ</span><span class="stat-icon">✓</span></div><strong>${completed}</strong><small>সম্পন্ন হয়েছে</small></article>
+ <article class="stat-card"><div class="stat-top"><span>আমার রেকর্ড</span><span class="stat-icon">▤</span></div><strong>${total}</strong><small>সংরক্ষিত তথ্য</small></article></div>
+ <div class="section-heading"><div><h2>দ্রুত কাজ</h2><p>এক ক্লিকেই প্রয়োজনীয় কাজ শুরু করুন</p></div></div>
+ <div class="quick-grid"><button class="quick-card" data-add="tasks"><span class="quick-icon">＋</span><strong>নতুন কাজ</strong></button><button class="quick-card" data-add="expenses"><span class="quick-icon">৳</span><strong>খরচ যোগ</strong></button><button class="quick-card" data-add="sales"><span class="quick-icon">▣</span><strong>বিক্রি যোগ</strong></button><button class="quick-card" data-add="shopping"><span class="quick-icon">🛒</span><strong>বাজার তালিকা</strong></button></div>
+ <div class="section-heading"><div><h2>আপনার প্রয়োজনীয় বিভাগ</h2><p>নিজের প্রয়োজন অনুযায়ী ব্যবহার করুন</p></div></div>
+ <div class="module-grid">${[["student","🎓","স্টুডেন্ট জোন","পড়াশোনা ও পরীক্ষার পরিকল্পনা"],["business","🏪","ব্যবসা","বিক্রি, বাকি ও হিসাব"],["finance","💰","আমার হিসাব","আয়, ব্যয় ও সঞ্চয়"],["bazar","🛒","স্মার্ট বাজার","বাজারের তালিকা ও বাজেট"],["documents","📂","ডকুমেন্ট ভল্ট","জরুরি কাগজের তথ্য ও মেয়াদ"],["career","💼","ক্যারিয়ার","চাকরি ও প্রস্তুতির পরিকল্পনা"]].map(m=>`<button class="module-card" data-page="${m[0]}"><span class="module-icon">${m[1]}</span><strong>${m[2]}</strong><small>${m[3]}</small><span class="module-arrow">→</span></button>`).join("")}</div>
+ <div class="section-heading"><div><h2>সাম্প্রতিক কার্যক্রম</h2><p>আপনার সর্বশেষ সংরক্ষিত তথ্য</p></div></div>
+ <div class="panel">${this.recent(d)}</div>`;
+ },
+ recent(d){const all=[];["tasks","expenses","sales","shopping","study","business","bills","documents","career","family"].forEach(k=>(d[k]||[]).forEach(x=>all.push({...x,_type:k})));all.sort((a,b)=>(b.createdAt||"").localeCompare(a.createdAt||""));if(!all.length)return `<div class="empty-state"><div class="empty-symbol">◷</div><strong>এখনো কোনো কার্যক্রম নেই</strong><p>আপনার প্রথম তথ্য যোগ করলে এখানে দেখা যাবে।</p></div>`;return `<div class="record-list">${all.slice(0,5).map(x=>`<div class="record-card"><div class="record-main"><strong>${Dinbox.escape(x.title||x.name||x.item||"নতুন রেকর্ড")}</strong><small>${Dinbox.escape(x.note||x.category||x._type)} · ${new Date(x.createdAt).toLocaleDateString()}</small></div><span class="record-amount">${x.amount?Dinbox.money(x.amount):""}</span></div>`).join("")}</div>`;}
+ };
+})();

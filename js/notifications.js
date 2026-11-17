@@ -1,0 +1,2 @@
+/* Notification support is intentionally opt-in and local-only. Browser notifications may be limited when the app is closed. */
+window.DinboxNotifications={supported:("Notification" in window),async request(){if(!this.supported)return false;return (await Notification.requestPermission())==="granted";}};

@@ -1,0 +1,21 @@
+(function(){
+ const configs={
+ planner:{title:"দৈনিক পরিকল্পনা",desc:"কাজ, তারিখ ও অগ্রগতি এক জায়গায় রাখুন।",key:"tasks",add:"নতুন কাজ",fields:[["title","কাজের নাম","text",true],["date","তারিখ","date",true],["note","বিবরণ","textarea"],["done","সম্পন্ন?","checkbox"]]},
+ student:{title:"স্টুডেন্ট জোন",desc:"ক্লাস, পরীক্ষা, অ্যাসাইনমেন্ট ও পড়াশোনার পরিকল্পনা।",key:"study",add:"পড়াশোনার রেকর্ড",fields:[["title","বিষয় / কাজ","text",true],["date","শেষ তারিখ","date"],["category","ধরন","select",false,["ক্লাস","পরীক্ষা","অ্যাসাইনমেন্ট","পড়াশোনা"]],["note","নোট","textarea"]]},
+ business:{title:"ব্যবসা ডেস্ক",desc:"বিক্রি ও ব্যবসার লেনদেনের ব্যক্তিগত হিসাব।",key:"sales",add:"বিক্রি যোগ করুন",fields:[["title","পণ্য / বিবরণ","text",true],["amount","বিক্রির পরিমাণ (৳)","number",true],["date","তারিখ","date",true],["note","কাস্টমার / নোট","textarea"]]},
+ finance:{title:"আমার হিসাব",desc:"ব্যক্তিগত আয় ও ব্যয়ের হিসাব রাখুন।",key:"expenses",add:"নতুন লেনদেন",fields:[["title","বিবরণ","text",true],["amount","টাকার পরিমাণ (৳)","number",true],["date","তারিখ","date",true],["category","ধরন","select",true,["খরচ","আয়"]],["note","নোট","textarea"]]},
+ bazar:{title:"স্মার্ট বাজার",desc:"বাজারের পণ্য, পরিমাণ ও আনুমানিক বাজেট লিখুন।",key:"shopping",add:"বাজারের পণ্য যোগ",fields:[["title","পণ্যের নাম","text",true],["amount","আনুমানিক দাম (৳)","number"],["date","কেনার তারিখ","date"],["note","পরিমাণ / নোট","textarea"]]},
+ bills:{title:"বিল ম্যানেজার",desc:"বিদ্যুৎ, গ্যাস, পানি, ইন্টারনেট ও কিস্তির তারিখ মনে রাখুন।",key:"bills",add:"বিল যোগ করুন",fields:[["title","বিলের নাম","text",true],["amount","পরিমাণ (৳)","number"],["date","পরিশোধের তারিখ","date"],["category","ধরন","text"],["note","নোট","textarea"]]},
+ documents:{title:"ডকুমেন্ট ভল্ট",desc:"গুরুত্বপূর্ণ কাগজের নাম ও মেয়াদের তথ্য রাখুন। সংবেদনশীল নম্বর বা স্ক্যান কপি এখানে রাখবেন না।",key:"documents",add:"ডকুমেন্ট যোগ",fields:[["title","ডকুমেন্টের নাম","text",true],["date","মেয়াদ / মনে রাখার তারিখ","date"],["category","ধরন","text"],["note","নোট (নম্বর ছাড়া)","textarea"]]},
+ career:{title:"ক্যারিয়ার ডেস্ক",desc:"চাকরির আবেদন, পরীক্ষা ও ইন্টারভিউয়ের অগ্রগতি রাখুন।",key:"career",add:"আবেদন যোগ করুন",fields:[["title","প্রতিষ্ঠান / পদের নাম","text",true],["date","শেষ তারিখ","date"],["category","অবস্থা","select",false,["প্রস্তুতি","আবেদন করা হয়েছে","পরীক্ষা","ইন্টারভিউ","সম্পন্ন"]],["note","লিংক / নোট","textarea"]]},
+ family:{title:"পরিবার ডেস্ক",desc:"পারিবারিক কাজ, কেনাকাটা ও দায়িত্বের তালিকা রাখুন।",key:"family",add:"পারিবারিক কাজ যোগ",fields:[["title","কাজের নাম","text",true],["date","তারিখ","date"],["category","দায়িত্ব","text"],["note","বিবরণ","textarea"]]}
+ };
+ function esc(s){return Dinbox.escape(s??"");}
+ function render(key){const c=configs[key];const rows=DinboxStore.get(c.key);const total=key==="finance"?rows.reduce((s,x)=>s+Number(x.amount||0),0):0;
+ return `<div class="toolbar"><div><h1>${c.title}</h1><p>${c.desc}</p></div><button class="btn btn-primary" data-add="${c.key}">＋ ${c.add}</button></div>
+ ${key==="finance"?`<div class="panel" style="margin-bottom:15px"><span class="muted">মোট রেকর্ডকৃত আয়/ব্যয় (নিট নয়)</span><h2>${Dinbox.money(total)}</h2><small class="muted">ধরন অনুযায়ী প্রতিটি রেকর্ড দেখুন।</small></div>`:""}
+ <div class="record-list">${rows.length?rows.map(x=>`<article class="record-card"><div class="record-main"><strong>${esc(x.title)}</strong><small>${[x.date,x.category,x.note].filter(Boolean).map(esc).join(" · ")}</small></div><div class="record-meta">${x.amount?`<span class="record-amount">${Dinbox.money(x.amount)}</span>`:""}<div class="record-actions">${key==="planner"?`<button class="mini-btn" data-toggle-task="${x.id}">${x.done?"ফিরিয়ে নিন":"সম্পন্ন"}</button>`:""}<button class="mini-btn" data-delete="${c.key}:${x.id}" aria-label="মুছুন">মুছুন</button></div></div></article>`).join(""):`<div class="panel empty-state"><div class="empty-symbol">▤</div><strong>এখনো কোনো তথ্য নেই</strong><p>“${c.add}” বাটনে চাপ দিয়ে শুরু করুন।</p></div>`}</div>
+ <p class="footer-note">তথ্য এই ব্রাউজারের ডিভাইসেই সংরক্ষিত হয়। নিয়মিত Settings থেকে ব্যাকআপ নিন।</p>`;
+ }
+ window.DinboxModules={configs,render,fieldConfig(key){return configs[key]||null;}};
+})();
