@@ -1,7 +1,7 @@
 /* DINBOX local data store: all records stay in this browser. */
 (function(){
   const KEY="dinbox_data_v1";
-  const empty={tasks:[],expenses:[],sales:[],shopping:[],study:[],business:[],bills:[],documents:[],career:[],family:[],settings:{language:"bn",theme:"light",profileName:"আমার DINBOX"}};
+  const empty={tasks:[],expenses:[],sales:[],shopping:[],study:[],business:[],bills:[],documents:[],career:[],family:[],settings:{language:"bn",theme:"light",profileName:"আমার DINBOX",favorites:["planner","finance","student"],palette:"green"}};
   function clone(v){return JSON.parse(JSON.stringify(v));}
   function read(){try{const raw=localStorage.getItem(KEY);if(!raw)return clone(empty);const d=JSON.parse(raw);return {...clone(empty),...d,settings:{...empty.settings,...(d.settings||{})}};}catch(e){return clone(empty);}}
   let data=read();
