@@ -1,9 +1,11 @@
+
 (function(){
  const $=s=>document.querySelector(s);
  const bnNum=n=>new Intl.NumberFormat(DinboxLanguage.current()==="bn"?"bn-BD":"en-US",{maximumFractionDigits:2}).format(Number(n)||0);
  const pageNames=DinboxRouter.titles;
  const modulePages=["planner","student","business","finance","bazar","bills","documents","career","family"];
  const pageContainer=$("#pageContainer");
+
  window.Dinbox={
   money(n){return "৳"+bnNum(n);},
   escape(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));},
@@ -52,16 +54,39 @@
     $("#clearData")?.addEventListener("click",()=>{if(confirm("সতর্কতা: সব স্থানীয় DINBOX তথ্য স্থায়ীভাবে মুছে যাবে। আগে ব্যাকআপ নিয়েছেন?")&&confirm("নিশ্চিতভাবে সব তথ্য মুছবেন?")){DinboxStore.clear();this.toast("স্থানীয় তথ্য মুছে ফেলা হয়েছে");this.render();}});
   }
  };
+
  $("#recordForm").addEventListener("submit",e=>{e.preventDefault();const form=e.currentTarget,key=$("#recordDialog").dataset.key,fd=new FormData(form),item={};for(const [k,v] of fd.entries())item[k]=v;if(!item.date)item.date=new Date().toISOString().slice(0,10);if(item.amount!==undefined)item.amount=Number(item.amount)||0;DinboxStore.add(key,item);$("#recordDialog").close();form.reset();Dinbox.toast("তথ্য সফলভাবে সংরক্ষিত হয়েছে");Dinbox.render();});
+
  $("#menuButton").addEventListener("click",()=>{$("#sidebar").classList.add("open");$("#sidebarOverlay").classList.add("show");});
+
  function closeMenu(){$("#sidebar").classList.remove("open");$("#sidebarOverlay").classList.remove("show");}
- $("#closeSidebar").addEventListener("click",closeMenu);$("#sidebarOverlay").addEventListener("click",closeMenu);
+
+ $("#closeSidebar").addEventListener("click",closeMenu);
+ $("#sidebarOverlay").addEventListener("click",closeMenu);
  document.querySelectorAll(".sidebar [data-page]").forEach(a=>a.addEventListener("click",closeMenu));
+
  $("#themeButton").addEventListener("click",()=>{DinboxTheme.toggle();});
  $("#languageButton").addEventListener("click",()=>DinboxLanguage.toggle());
+
  window.addEventListener("hashchange",()=>{Dinbox.render();closeMenu();});
  window.addEventListener("DOMContentLoaded",()=>{});
+
  $("#year").textContent=new Date().getFullYear();
- DinboxTheme.apply();DinboxLanguage.apply();$("#profileName").textContent=DinboxStore.all().settings.profileName||"আমার DINBOX";Dinbox.render();
- if("serviceWorker" in navigator && location.protocol!=="file:"){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js").catch(()=>Dinbox.toast("Offline worker চালু করা যায়নি","error")));}
+
+ DinboxTheme.apply();
+ DinboxLanguage.apply();
+ $("#profileName").textContent=DinboxStore.all().settings.profileName||"আমার DINBOX";
+ Dinbox.render();
+
+ // DINBOX PWA Service Worker Registration
+ if("serviceWorker" in navigator && location.protocol==="https:"){
+   navigator.serviceWorker.register("./service-worker.js",{
+     scope:"./"
+   }).then(registration=>{
+     console.info("DINBOX Service Worker registered:",registration.scope);
+   }).catch(error=>{
+     console.error("DINBOX Service Worker Error:",error);
+   });
+ }
+
 })();
