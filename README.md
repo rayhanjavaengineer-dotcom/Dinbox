@@ -1,4 +1,4 @@
-# DINBOX
+# DINBOX 2.0 — Premium Upgrade
 
 **আপনার প্রতিদিনের ডিজিটাল সঙ্গী।**
 
@@ -6,7 +6,11 @@ DINBOX হলো বাংলাদেশি ব্যবহারকারী�
 
 ## বৈশিষ্ট্য
 - বাংলা / English interface toggle
-- Light / Dark theme
+- Light / Dark / System theme এবং Green / Blue / Purple / Gold palette
+- Global Search: বিভাগ ও নিজের সংরক্ষিত রেকর্ড খোঁজা
+- Favourite workspace shortcuts
+- CSV export এবং যাচাইকৃত JSON backup restore
+- Online / Offline status indicator
 - Daily planner এবং task completion
 - Student, business, finance, bazar, bills, documents, career ও family records
 - Discount, profit/loss, VAT এবং savings calculator
@@ -28,12 +32,14 @@ DINBOX হলো বাংলাদেশি ব্যবহারকারী�
 - তারপর `http://localhost:8000` খুলুন।
 
 ## ডেটা ও গোপনীয়তা
-DINBOX-এর রেকর্ড একই ব্রাউজারের localStorage-এ থাকে। কোনো সার্ভারে পাঠানো হয় না। Browser data মুছে গেলে রেকর্ড হারাতে পারে—নিয়মিত Settings থেকে JSON backup export করুন। Import করলে বর্তমান ডেটা প্রতিস্থাপিত হয়।
+DINBOX-এর রেকর্ড একই ব্রাউজারের localStorage-এ থাকে। বিদ্যমান `dinbox_data_v1` storage key অপরিবর্তিত রাখা হয়েছে। কোনো সার্ভারে পাঠানো হয় না। Browser data মুছে গেলে রেকর্ড হারাতে পারে—নিয়মিত Settings থেকে JSON backup export করুন। Import করলে বর্তমান ডেটা প্রতিস্থাপিত হয়।
 
 **গুরুত্বপূর্ণ:** Document Vault কেবল ডকুমেন্টের নাম/তারিখ/সাধারণ নোট রাখার জন্য। NID নম্বর, পাসওয়ার্ড, ব্যাংক/কার্ড তথ্য বা সংবেদনশীল নথির ছবি সংরক্ষণ করবেন না। এটি encrypted vault নয়। VAT calculator-এ নিজের ক্ষেত্রে প্রযোজ্য হার যাচাই করে ব্যবহার করুন।
 
 ## সীমাবদ্ধতা
 - কোনো cloud sync, multi-user login বা shared database নেই।
+- Global Search, theme, favorites, backup ও export স্থানীয়ভাবে কাজ করে।
+- Browser বন্ধ থাকলে নির্ভরযোগ্য scheduled push reminder নিশ্চিত নয়।
 - Live government data, live market prices, SMS বা server push notifications নেই।
 - Android/Desktop-এ PWA install করা যায় supported browser-এ; এটি native APK বা Play Store app নয়।
 - Google Fonts ব্যবহারের কারণে প্রথমবার ইন্টারনেট থাকলে ফন্ট ভালোভাবে লোড হবে; পরে fallback font থাকবে।

@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#08764e">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="description" content="DINBOX — বাংলাদেশের মানুষের দৈনন্দিন কাজ, পড়াশোনা, ব্যবসা ও ব্যক্তিগত হিসাবের ডিজিটাল সঙ্গী।">
   <meta name="color-scheme" content="light dark">
   <title>DINBOX — আপনার প্রতিদিনের ডিজিটাল সঙ্গী</title>
@@ -47,6 +49,7 @@
         <div class="breadcrumb"><span>DINBOX</span><span>/</span><strong id="currentPageTitle">হোম</strong></div>
       </div>
       <div class="topbar-actions">
+        <label class="global-search-wrap"><span aria-hidden="true">⌕</span><input id="globalSearch" type="search" placeholder="DINBOX-এ খুঁজুন…" autocomplete="off" aria-label="DINBOX-এ খুঁজুন"><span class="search-shortcut">/</span></label>
         <span class="local-status"><i></i><span id="connectionLabel">অফলাইন-প্রস্তুত</span></span>
         <button class="topbar-button" id="languageButton" aria-label="ভাষা পরিবর্তন">বাংলা</button>
         <button class="icon-btn" id="themeButton" aria-label="থিম পরিবর্তন">◐</button>
@@ -56,6 +59,7 @@
     <footer class="app-footer"><span>DINBOX © <span id="year"></span></span><span>বাংলাদেশের মানুষের জন্য তৈরি · আপনার তথ্য আপনার কাছেই</span></footer>
   </main>
 </div>
+<div class="search-results" id="searchResults" hidden role="listbox" aria-label="সার্চ ফলাফল"></div>
 <div class="toast-region" id="toastRegion" aria-live="polite"></div>
 <dialog id="recordDialog" class="modal">
   <form method="dialog" id="recordForm">
