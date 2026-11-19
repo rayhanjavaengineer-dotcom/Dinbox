@@ -3,3 +3,33 @@
 @media(max-width:390px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.module-grid{grid-template-columns:1fr 1fr}.module-card small{font-size:10px}.brand-name{font-size:18px}.topbar-button{padding:7px 9px}}
 
 @media(max-width:760px){.favorite-grid{gap:8px}.search-results{width:calc(100vw - 24px)}}
+
+
+/* DINBOX v2.1 — mobile viewport and overflow fixes */
+html, body { width:100%; max-width:100%; overflow-x:clip; }
+.app-layout { width:100%; max-width:100%; min-width:0; }
+.main-content { min-width:0; width:calc(100% - 258px); max-width:100%; }
+.topbar, .topbar-left, .topbar-actions { min-width:0; }
+.topbar-actions { flex:0 1 auto; }
+.page-container { min-width:0; width:100%; max-width:100%; }
+.stats-grid, .quick-grid, .module-grid, .favorite-grid, .two-column, .calc-grid, .settings-grid { min-width:0; }
+.stats-grid > *, .quick-grid > *, .module-grid > *, .favorite-grid > *, .two-column > * { min-width:0; }
+img, svg, video, canvas { max-width:100%; }
+@media (max-width:760px) {
+  .main-content { width:100%; max-width:100%; margin-left:0; }
+  .topbar { width:100%; max-width:100%; padding:0 10px; gap:8px; overflow:visible; }
+  .topbar-left { flex:0 1 auto; gap:6px; }
+  .breadcrumb { min-width:0; max-width:26vw; overflow:hidden; white-space:nowrap; }
+  .breadcrumb strong { overflow:hidden; text-overflow:ellipsis; }
+  .topbar-actions { flex:1 1 auto; justify-content:flex-end; gap:6px; }
+  .global-search-wrap { flex:0 1 34vw; width:34vw; min-width:0; max-width:180px; }
+  .topbar-button { flex:0 0 auto; white-space:nowrap; }
+  .page-container { padding-left:14px; padding-right:14px; }
+  .hero, .panel, .stat-card, .module-card, .quick-card { min-width:0; }
+}
+@media (max-width:390px) {
+  .breadcrumb { display:none; }
+  .global-search-wrap { flex-basis:34px; width:34px; }
+  .topbar-button { padding:7px 8px; font-size:11px; }
+  .page-container { padding-left:12px; padding-right:12px; }
+}
