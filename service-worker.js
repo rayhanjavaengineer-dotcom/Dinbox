@@ -1,4 +1,5 @@
-const CACHE_NAME="dinbox-shell-v2";
+// DINBOX v2.1 mobile layout and icon refresh
+const CACHE_NAME="dinbox-shell-v3";
 const APP_SHELL=["./","./index.html","./manifest.json","./css/style.css","./css/responsive.css","./js/storage.js","./js/language.js","./js/theme.js","./js/router.js","./js/dashboard.js","./js/modules.js","./js/calculator.js","./js/backup.js","./js/app.js","./data/bn.json","./data/en.json","./assets/icons/icon-192.png","./assets/icons/icon-512.png"];
 self.addEventListener("install",event=>{event.waitUntil((async()=>{const cache=await caches.open(CACHE_NAME);await Promise.all(APP_SHELL.map(async path=>{try{const response=await fetch(path,{cache:"reload"});if(response.ok)await cache.put(path,response);}catch(error){console.warn("DINBOX cache skipped:",path);}}));await self.skipWaiting();})());});
 self.addEventListener("activate",event=>{event.waitUntil((async()=>{const keys=await caches.keys();await Promise.all(keys.filter(key=>key.startsWith("dinbox-shell-")&&key!==CACHE_NAME).map(key=>caches.delete(key)));await self.clients.claim();})());});
